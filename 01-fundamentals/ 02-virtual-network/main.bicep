@@ -2,7 +2,7 @@ param virtualNetworkName string
 param location string = resourceGroup().location
 param addressPrefix string
 
-@description('Sous-réseaux à créer dans le réseau virtuel')
+@description('Subnets to create in the virtual network.')
 param subnets array
 
 resource virtualNetwork 'Microsoft.Network/virtualNetworks@2019-11-01' = {

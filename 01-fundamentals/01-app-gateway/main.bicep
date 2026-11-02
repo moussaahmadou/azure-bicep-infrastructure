@@ -1,28 +1,28 @@
-@description('Nom de la passerelle Application Gateway.')
+@description('Name of the Application Gateway.')
 param appGatewayName string
 
-@description('Région Azure de la passerelle et de son adresse IP publique.')
+@description('Azure region for the gateway and its public IP address.')
 param location string = resourceGroup().location
 
-@description('Nom du réseau virtuel qui contient le sous-réseau dédié à la passerelle.')
+@description('Name of the virtual network containing the dedicated gateway subnet.')
 param virtualNetworkName string
 
-@description('Nom du sous-réseau dédié à Application Gateway.')
+@description('Name of the subnet dedicated to Application Gateway.')
 param gatewaySubnetName string
 
-@description('Nom de l’adresse IP publique Standard créée pour la passerelle.')
+@description('Name of the Standard public IP address created for the gateway.')
 param publicIpName string
 
-@description('Adresses IPv4 privées des serveurs HTTP du pool backend.')
+@description('Private IPv4 addresses of the HTTP servers in the backend pool.')
 param backendAddresses array
 
-@description('Port HTTP exposé par le listener.')
+@description('HTTP port exposed by the listener.')
 param frontendPort int = 80
 
-@description('Port HTTP utilisé pour joindre les serveurs backend.')
+@description('HTTP port used to reach the backend servers.')
 param backendPort int = 80
 
-// Le réseau et le sous-réseau doivent exister avant le déploiement de la passerelle.
+// The virtual network and subnet must exist before deploying the gateway.
 resource virtualNetwork 'Microsoft.Network/virtualNetworks@2024-05-01' existing = {
   name: virtualNetworkName
 }
@@ -32,7 +32,7 @@ resource gatewaySubnet 'Microsoft.Network/virtualNetworks/subnets@2024-05-01' ex
   name: gatewaySubnetName
 }
 
-// Application Gateway v2 requiert une adresse IP publique Standard et statique.
+// Application Gateway v2 requires a static Standard public IP address.
 resource publicIp 'Microsoft.Network/publicIPAddresses@2024-05-01' = {
   name: publicIpName
   location: location
@@ -49,7 +49,7 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2024-05-01' =
   name: appGatewayName
   location: location
   properties: {
-    // Le mode v2 ajuste la capacité entre 0 et 2 instances selon le trafic.
+    // The v2 tier scales between zero and two instances based on traffic.
     sku: {
       name: 'Standard_v2'
       tier: 'Standard_v2'

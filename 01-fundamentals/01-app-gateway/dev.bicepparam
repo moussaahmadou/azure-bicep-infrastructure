@@ -6,7 +6,7 @@ param virtualNetworkName = 'vnet-sukul'
 param gatewaySubnetName = 'snet-app-gateway'
 param publicIpName = 'pip-agw-sukul-dev'
 
-// Remplacez cette adresse par l'IP privée d'un backend HTTP existant et joignable.
+// Replace this address with the private IP of an existing, reachable HTTP backend.
 param backendAddresses = [
   '10.0.1.4'
 ]

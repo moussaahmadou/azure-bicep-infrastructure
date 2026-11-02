@@ -1,7 +1,7 @@
 param nsgName string
 param location string = resourceGroup().location
 
-@description('Règles de sécurité à configurer sur le NSG')
+@description('Security rules to configure on the NSG.')
 param securityRules array
 
 resource networkSecurityGroup 'Microsoft.Network/networkSecurityGroups@2019-11-01' = {

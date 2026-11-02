@@ -5,7 +5,7 @@ param location = 'westeurope'
 param securityRules = [
   {
     name: 'allow-https-in'
-    description: 'Autoriser HTTPS vers l application web'
+    description: 'Allow HTTPS traffic to the web application'
     protocol: 'Tcp'
     sourcePortRange: '*'
     destinationPortRange: '443'
